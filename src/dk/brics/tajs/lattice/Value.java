@@ -274,6 +274,8 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
      */
     protected boolean locked;
 
+    private boolean tainted; // is set, the value is tainted
+
     protected static boolean canonicalizing; // set during canonicalization
 
     static {
@@ -315,6 +317,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
         flags = 0;
         num = null;
         str = null;
+        tainted = false;
         object_labels = getters = setters = null;
         excluded_strings = included_strings = null;
         functionPartitions = null;
@@ -338,6 +341,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
         functionPartitions = v.functionPartitions;
         functionTypeSignatures = v.functionTypeSignatures;
         var = v.var;
+        tainted = v.tainted;
         hashcode = v.hashcode;
     }
 
@@ -433,6 +437,20 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
      */
     public static void reset() {
         init();
+    }
+
+    /**
+     * Get the taint info
+     */
+    public boolean getTainted() {
+        return tainted;
+    }
+
+    /**
+     * Set the taint info
+     */
+    public boolean setTainted(boolean val) {
+        return tainted = val;
     }
 
     /**
@@ -1142,6 +1160,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
             setters = v.setters;
             excluded_strings = v.excluded_strings;
             included_strings = v.included_strings;
+            tainted = v.tainted;
             var = v.var;
             return true;
         }
@@ -1215,6 +1234,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
                 }
             }
         }
+
         // flags
         flags |= v.flags & ~STR_PREFIX; // STR_PREFIX is handled above by joinSingleStringOrPrefixString
         if (var == null)
@@ -1227,6 +1247,8 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
             modified = true;
         if (joinMutableFunctionTypeSignatures(v))
             modified = true;
+
+        tainted |= v.tainted;
         return modified;
     }
 
@@ -1647,6 +1669,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
             b.append("<no value>");
 //         if (isMaybeModified())
 //         b.append("%");
+        b.append(" | tainted:").append(tainted);
         return b.toString();
     }
 

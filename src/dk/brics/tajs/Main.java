@@ -83,6 +83,8 @@ import java.util.Set;
 import static dk.brics.tajs.util.Collections.newList;
 import static dk.brics.tajs.util.Collections.newSet;
 
+import java.io.*;
+
 /**
  * Main class for the TAJS program analysis.
  */

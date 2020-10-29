@@ -81,8 +81,9 @@ public class CallNode extends LoadNode {
         this.base_reg = base_reg;
         this.function_reg = function_reg;
         this.arg_regs = new int[arg_regs.size()];
-        for (int i = 0; i < this.arg_regs.length; i++)
+        for (int i = 0; i < this.arg_regs.length; i++) {
             this.arg_regs[i] = arg_regs.get(i);
+        }
         this.tajsFunctionName = null;
     }
 

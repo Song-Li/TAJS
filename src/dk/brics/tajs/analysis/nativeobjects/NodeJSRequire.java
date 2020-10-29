@@ -60,6 +60,7 @@ public class NodeJSRequire {
      * @param location as the location the resolution should start from
      */
     public URL resolve(String arg, URL location) {
+        System.out.println("Resolve, " + arg + "| " + location);
         Pair<String, URL> cacheKey = Pair.make(arg, location);
         if (resolveCache.containsKey(cacheKey)) {
             return resolveCache.get(cacheKey);

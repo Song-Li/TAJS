@@ -69,11 +69,13 @@ import dk.brics.tajs.lattice.ObjectLabel;
 import dk.brics.tajs.lattice.ObjectLabel.Kind;
 import dk.brics.tajs.lattice.PKey.StringPKey;
 import dk.brics.tajs.lattice.PKeys;
+import dk.brics.tajs.lattice.PKey;
 import dk.brics.tajs.lattice.PartitionToken;
 import dk.brics.tajs.lattice.PartitionedValue;
 import dk.brics.tajs.lattice.State;
 import dk.brics.tajs.lattice.UnknownValueResolver;
 import dk.brics.tajs.lattice.Value;
+import dk.brics.tajs.lattice.ObjectProperty;
 import dk.brics.tajs.monitoring.IAnalysisMonitoring;
 import dk.brics.tajs.options.Options;
 import dk.brics.tajs.solver.BlockAndContext;
@@ -355,6 +357,9 @@ public class NodeTransfer implements NodeVisitor {
             default:
                 throw new AnalysisException();
         }
+        if (arg1.getTainted() || arg2.getTainted()) {
+          v.setTainted(true);
+        }
         return v;
     }
 
@@ -414,6 +419,14 @@ public class NodeTransfer implements NodeVisitor {
     @Override
     public void visit(WriteVariableNode n) {
         Value v = c.getState().readRegister(n.getValueRegister());
+        /*System.out.println("Left: " + n + v);
+        System.out.println("Printing stack trace:");
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (int i = 1; i < elements.length; i++) {
+             StackTraceElement s = elements[i];
+                  System.out.println("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":" + s.getLineNumber() + ")");
+        }
+        */
         if (Options.get().isBlendedAnalysisEnabled()) {
             v = c.getAnalysis().getBlendedAnalysis().getVariableValue(v, n, c.getState());
             if (v.isNone()) {
@@ -441,6 +454,8 @@ public class NodeTransfer implements NodeVisitor {
         // get the base value, coerce with ToObject
         Value baseval = c.getState().readRegister(n.getBaseRegister());
         baseval = UnknownValueResolver.getRealValue(baseval, c.getState());
+
+
         if (Options.get().isBlendedAnalysisEnabled())
             baseval = Value.join(c.getAnalysis().getBlendedAnalysis().getBase(baseval, n, c.getState())); // join does not decrease precision due to base being object labels only
         m.visitPropertyAccess(n, baseval);
@@ -548,6 +563,38 @@ public class NodeTransfer implements NodeVisitor {
         // get the base value, coerce with ToObject
         Value baseval = c.getState().readRegister(n.getBaseRegister());
         baseval = UnknownValueResolver.getRealValue(baseval, c.getState());
+        /*
+        System.out.println("Left: " + n + baseval);
+        System.out.println("Printing stack trace:");
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (int i = 1; i < elements.length; i++) {
+             StackTraceElement s = elements[i];
+                  System.out.println("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":" + s.getLineNumber() + ")");
+        }
+
+        */
+        // if there is exports, it should have a read property of exports here
+        // added by song
+        String property_str = n.getPropertyString();
+        if (property_str != null && property_str.equals("exports")) {
+            int value_reg = n.getValueRegister();
+            Value exp_val = c.getState().readRegister(value_reg);
+            for (ObjectLabel obj_label : exp_val.getObjectLabels()) {
+                for (Entry<PKey, Value> me : c.getState().getObject(obj_label, false).getProperties().entrySet()) {
+                    for (ObjectLabel val_label : me.getValue().getObjectLabels()){
+                        if (val_label.getKind().toString().equals("Function")) {
+                            String func_name = val_label.getFunction().getName();
+                            c.addExported(func_name);
+                            //System.out.println("Export: " + n + n.getValueRegister() + func_name);
+                        }
+                    }
+
+                }
+            }
+        }
+        // export format 2, module.export.a = a
+        // TODO: impelment this lalter
+
         if (Options.get().isBlendedAnalysisEnabled())
             baseval = UnknownValueResolver.join(c.getAnalysis().getBlendedAnalysis().getBase(baseval, n, c.getState()), c.getState()); // join does not decrease precision due to base being object labels only
         m.visitPropertyAccess(n, baseval);
@@ -707,6 +754,44 @@ public class NodeTransfer implements NodeVisitor {
      */
     @Override
     public void visit(CallNode n) {
+        int base_reg = n.getBaseRegister();
+        int func_reg = n.getFunctionRegister();
+        int size_args = n.getNumberOfArgs();
+        boolean exported_flag = false;
+        if (func_reg > 0) {
+            System.out.println("Call :" + n + c.getState().readRegister(func_reg));
+        }
+        if (size_args > 0 && func_reg > 0) {
+            // there should be only one name
+            for (ObjectLabel obj_label : c.getState().readRegister(func_reg).getObjectLabels()) {
+                String func_name = obj_label.getFunction().getName();
+                System.out.println("Func Name: " + func_name);
+                if (func_name != null && func_name.equals("exec")) {
+                    if (size_args > 0) {
+                        int arg_reg = n.getArgRegister(0);
+                        Value arg_value = c.getState().readRegister(arg_reg);
+                        if (arg_value.getTainted()) {
+                            //System.out.println("Vul Found: " + func_name + arg_value);
+                        }
+                    }
+
+                }
+                System.out.println("Func Name: " + func_name + c.checkExported(func_name) + c.getExported());
+                if (c.checkExported(func_name)) {
+                    exported_flag = true;
+                    break;
+                }
+            }
+        }
+        if (exported_flag) {
+          for (int i = 0;i < size_args;++ i) {
+              int arg_reg = n.getArgRegister(i);
+              Value arg_value = c.getState().readRegister(arg_reg);
+              arg_value.setTainted(true);
+              c.getState().writeRegister(arg_reg, arg_value);
+              ObjectProperty op = arg_value.getObjectProperty();
+          }
+        }
         if (n.getTajsFunctionName() != null) {
             FunctionCalls.callFunction(new OrdinaryCallInfo(n, c) {
                 @Override

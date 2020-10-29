@@ -31,6 +31,8 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.function.Supplier;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Generic fixpoint solver for flow graphs.
@@ -61,6 +63,8 @@ public class GenericSolver<StateType extends IState<StateType, ContextType, Call
 
     private StateType current_state;
 
+    private Set<String> exported = new HashSet<String>();
+
     /**
      * Messages are disabled during fixpoint iteration and enabled in the subsequent scan phase.
      */
@@ -75,6 +79,25 @@ public class GenericSolver<StateType extends IState<StateType, ContextType, Call
     public class SolverInterface {
 
         private SolverInterface() {
+        }
+
+        /**
+         * Get exported functions
+         */
+        public Set<String> getExported() {
+            return exported;
+        }
+        /**
+         * Check a function is exported or not
+         */
+        public boolean checkExported(String funcName) {
+            return exported.contains(funcName);
+        }
+        /**
+         * Add a function name to exported
+         */
+        public void addExported(String funcName) {
+            exported.add(funcName);
         }
 
         /**

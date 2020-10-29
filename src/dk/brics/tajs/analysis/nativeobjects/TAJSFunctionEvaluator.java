@@ -700,6 +700,17 @@ public class TAJSFunctionEvaluator {
                     }
                     return Value.makeNull();
                 });
+        register(implementations, 
+            TAJS_makeTainted,
+            "value",
+            "Value",
+            (call, state, pv, c) -> {
+              Value taintedInfo = FunctionCalls.readParameter(call, state, 0);
+              Value newValue = new Value(taintedInfo);
+              newValue.setTainted(true);
+              return newValue;
+          }
+        )
         Set<TAJSFunctionName> missingRegistrations = newSet(Arrays.asList(TAJSFunctionName.values()));
         missingRegistrations.removeAll(implementations.keySet());
         if (!missingRegistrations.isEmpty()) {

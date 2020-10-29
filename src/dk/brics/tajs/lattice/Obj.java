@@ -55,6 +55,8 @@ public final class Obj {
 
     private int hash_code; // hash code, only used if non-writable, 0 means uninitialized
 
+    private boolean tainted; // if set, the obj is tainted, which means the input value can influence this obj
+
     private static int number_of_objs_created;
 
     private static int number_of_makewritable_properties;

@@ -101,6 +101,11 @@ public class State implements IState<State, Context, CallEdge> {
      */
     private List<Value> registers; // register values never have attributes or modified flag
 
+    /**
+     * Exported functions.
+     */
+    private Set<String> exported; 
+
     private boolean writable_registers; // for copy-on-write
 
     /**
@@ -189,6 +194,7 @@ public class State implements IState<State, Context, CallEdge> {
         stacked_funentries = newSet(x.stacked_funentries);
         writable_stacked = true;
         partitioning = new PartitioningInfo(x.partitioning);
+        exported = newSet();
 //        } else {
 //            store = x.store;
 //            basis_store = x.basis_store;
@@ -513,6 +519,7 @@ public class State implements IState<State, Context, CallEdge> {
         writable_registers = true;
         stacked_objlabels = newSet();
         stacked_funentries = newSet();
+        exported = newSet();
         writable_stacked = true;
 //        } else {
 //            store = Collections.emptyMap();
