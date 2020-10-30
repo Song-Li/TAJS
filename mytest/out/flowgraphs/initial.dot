@@ -1,0 +1,39 @@
+digraph {
+compound=true
+subgraph cluster0 {
+label="<main> function()\ntest.js";
+labelloc="t";
+fontsize=18;
+rankdir="TD"
+BB_entry0[shape=none,label=""];
+BB_entry0 -> BB0 [tailport=s, headport=n, headlabel="    0"]
+BB0 [shape=record label="{0: constant[undefined,v1]}" ] 
+BB0 -> BB1 [tailport=s, headport=n, headlabel="      1"]
+BB1 [shape=record label="{1: constant[\"tajs-host-env:string-replace-model.js\",v2]|2: constant[true,v3]}" ] 
+BB1 -> BB2 [tailport=s, headport=n, headlabel="      2"]
+BB2 [shape=record label="{3: call[TAJS_load,v2,v3,v4]}" ] 
+BB2 -> BB3 [tailport=s, headport=n, headlabel="      3"]
+BB2 -> BB11 [tailport=s, headport=n, color=gray, headlabel="      11"]
+BB3 [shape=record label="{4: call[-,v4,-]}" ] 
+BB3 -> BB4 [tailport=s, headport=n, headlabel="      4"]
+BB3 -> BB11 [tailport=s, headport=n, color=gray]
+BB4 [shape=record label="{5: constant[\"tajs-host-env:error-captureStackTrace-model.js\",v5]|6: constant[true,v6]}" ] 
+BB4 -> BB5 [tailport=s, headport=n, headlabel="      5"]
+BB5 [shape=record label="{7: call[TAJS_load,v5,v6,v7]}" ] 
+BB5 -> BB6 [tailport=s, headport=n, headlabel="      6"]
+BB5 -> BB11 [tailport=s, headport=n, color=gray]
+BB6 [shape=record label="{8: call[-,v7,-]}" ] 
+BB6 -> BB7 [tailport=s, headport=n, headlabel="      7"]
+BB6 -> BB11 [tailport=s, headport=n, color=gray]
+BB7 [shape=record label="{9: constant[\"tajs-host-env:nodejs/simple-bootstrap-node.js\",v8]|10: constant[true,v9]}" ] 
+BB7 -> BB8 [tailport=s, headport=n, headlabel="      8"]
+BB8 [shape=record label="{11: call[TAJS_load,v8,v9,v10]}" ] 
+BB8 -> BB9 [tailport=s, headport=n, headlabel="      9"]
+BB8 -> BB11 [tailport=s, headport=n, color=gray]
+BB9 [shape=record label="{12: call[-,v10,-]}" ] 
+BB9 -> BB10 [tailport=s, headport=n, headlabel="      10"]
+BB9 -> BB11 [tailport=s, headport=n, color=gray]
+BB10 [shape=record label="{13: return[v1]}" ] 
+BB11 [shape=record label="{14: exceptional-return}" ] 
+}
+}

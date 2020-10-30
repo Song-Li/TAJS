@@ -1,0 +1,87 @@
+digraph {
+compound=true
+subgraph cluster0 {
+label="<main> function()\ntest.js";
+labelloc="t";
+fontsize=18;
+rankdir="TD"
+BB_entry0[shape=none,label=""];
+BB_entry0 -> BB0 [tailport=s, headport=n, headlabel="    0"]
+BB0 [shape=record label="{0: constant[undefined,v1]}" ] 
+BB0 -> BB1 [tailport=s, headport=n, headlabel="      1"]
+BB1 [shape=record label="{1: constant[\"tajs-host-env:string-replace-model.js\",v2]|2: constant[true,v3]}" ] 
+BB1 -> BB2 [tailport=s, headport=n, headlabel="      2"]
+BB2 [shape=record label="{3: call[TAJS_load,v2,v3,v4]}" ] 
+BB2 -> BB3 [tailport=s, headport=n, headlabel="      3"]
+BB2 -> BB11 [tailport=s, headport=n, color=gray, headlabel="      11"]
+BB3 [shape=record label="{4: call[-,v4,-]}" ] 
+BB3 -> BB4 [tailport=s, headport=n, headlabel="      4"]
+BB3 -> BB11 [tailport=s, headport=n, color=gray]
+BB4 [shape=record label="{5: constant[\"tajs-host-env:error-captureStackTrace-model.js\",v5]|6: constant[true,v6]}" ] 
+BB4 -> BB5 [tailport=s, headport=n, headlabel="      5"]
+BB5 [shape=record label="{7: call[TAJS_load,v5,v6,v7]}" ] 
+BB5 -> BB6 [tailport=s, headport=n, headlabel="      6"]
+BB5 -> BB11 [tailport=s, headport=n, color=gray]
+BB6 [shape=record label="{8: call[-,v7,-]}" ] 
+BB6 -> BB7 [tailport=s, headport=n, headlabel="      7"]
+BB6 -> BB11 [tailport=s, headport=n, color=gray]
+BB7 [shape=record label="{9: constant[\"tajs-host-env:nodejs/simple-bootstrap-node.js\",v8]|10: constant[true,v9]}" ] 
+BB7 -> BB8 [tailport=s, headport=n, headlabel="      8"]
+BB8 [shape=record label="{11: call[TAJS_load,v8,v9,v10]}" ] 
+BB8 -> BB9 [tailport=s, headport=n, headlabel="      9"]
+BB8 -> BB11 [tailport=s, headport=n, color=gray]
+BB9 [shape=record label="{12: call[-,v10,-]}" ] 
+BB9 -> BB10 [tailport=s, headport=n, headlabel="      10"]
+BB9 -> BB11 [tailport=s, headport=n, color=gray]
+BB10 [shape=record label="{13: return[v1]}" ] 
+BB11 [shape=record label="{14: exceptional-return}" ] 
+}
+subgraph cluster33 {
+label="function def(input)\ntest.js:2:1\nouter: <anonymous>";
+labelloc="t";
+fontsize=18;
+rankdir="TD"
+BB_entry33[shape=none,label=""];
+BB_entry33 -> BB349 [tailport=s, headport=n, headlabel="    349"]
+BB349 [shape=record label="{772: constant[undefined,v1]|773: vardecl['inner']|774: vardecl['test']}" ] 
+BB349 -> BB350 [tailport=s, headport=n, headlabel="      350"]
+BB350 [shape=record label="{775: read-variable['input',v3,-]|776: constant[\"dd\",v4]|777: +[v3,v4,v2]|778: write-variable[v2,'inner']|779: read-variable['inner',v8,-]|780: read-variable['input',v9,-]|781: +[v8,v9,v6]|782: constant[\"abc\",v7]|783: +[v6,v7,v5]|784: write-variable[v5,'test']|785: read-variable['cp',v11,-]|786: read-property[v11,'exec',-]|787: constant[\"123\",v12]}" ] 
+BB350 -> BB351 [tailport=s, headport=n, headlabel="      351"]
+BB350 -> BB353 [tailport=s, headport=n, color=gray, headlabel="      353"]
+BB351 [shape=record label="{788: call[v11,'exec',v12,v1]}" ] 
+BB351 -> BB352 [tailport=s, headport=n, headlabel="      352"]
+BB351 -> BB353 [tailport=s, headport=n, color=gray]
+BB352 [shape=record label="{789: return[v1]}" ] 
+BB353 [shape=record label="{790: exceptional-return}" ] 
+}
+subgraph cluster32 {
+label="function(exports,require,module,__filename,__dirname)\ntest.js:1:1\nouter: <main>";
+labelloc="t";
+fontsize=18;
+rankdir="TD"
+BB_entry32[shape=none,label=""];
+BB_entry32 -> BB340 [tailport=s, headport=n, headlabel="    340"]
+BB340 [shape=record label="{751: constant[undefined,v1]|752: vardecl['cp']|753: function-decl[function def(input),-]|754: vardecl['func_input']}" ] 
+BB340 -> BB341 [tailport=s, headport=n, headlabel="      341"]
+BB341 [shape=record label="{755: read-variable['require',v5,v4]|756: constant[\"child_process\",v6]}" ] 
+BB341 -> BB342 [tailport=s, headport=n, headlabel="      342"]
+BB341 -> BB348 [tailport=s, headport=n, color=gray, headlabel="      348"]
+BB342 [shape=record label="{757: call[v4,v5,v6,v3]}" ] 
+BB342 -> BB343 [tailport=s, headport=n, headlabel="      343"]
+BB342 -> BB348 [tailport=s, headport=n, color=gray]
+BB343 [shape=record label="{758: write-variable[v3,'cp']|759: read-variable['Object',v8,-]}" ] 
+BB343 -> BB344 [tailport=s, headport=n, headlabel="      344"]
+BB343 -> BB348 [tailport=s, headport=n, color=gray]
+BB344 [shape=record label="{760: construct[-,v8,v7]}" ] 
+BB344 -> BB345 [tailport=s, headport=n, headlabel="      345"]
+BB344 -> BB348 [tailport=s, headport=n, color=gray]
+BB345 [shape=record label="{761: write-variable[v7,'func_input']|762: read-variable['module',v10,v2]|763: new[v9]|764: read-variable['def',v11,v2]|765: write-property[v9,'def',v11]|766: write-property[v10,'exports',v9]|767: read-variable['def',v13,v12]|768: read-variable['func_input',v14,v2]}" ] 
+BB345 -> BB346 [tailport=s, headport=n, headlabel="      346"]
+BB345 -> BB348 [tailport=s, headport=n, color=gray]
+BB346 [shape=record label="{769: call[v12,v13,v14,-]}" ] 
+BB346 -> BB347 [tailport=s, headport=n, headlabel="      347"]
+BB346 -> BB348 [tailport=s, headport=n, color=gray]
+BB347 [shape=record label="{770: return[v1]}" ] 
+BB348 [shape=record label="{771: exceptional-return}" ] 
+}
+}

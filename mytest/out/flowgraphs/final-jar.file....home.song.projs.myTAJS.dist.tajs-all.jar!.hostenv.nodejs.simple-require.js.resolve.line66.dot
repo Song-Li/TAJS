@@ -1,0 +1,15 @@
+digraph {
+rankdir="TD"
+BB_entry30[shape=none,label=""];
+BB_entry30 -> BB318 [tailport=s, headport=n, headlabel="    318"]
+BB318 [shape=record label="{699: constant[undefined,v1]}" ] 
+BB318 -> BB319 [tailport=s, headport=n, headlabel="      319"]
+BB319 [shape=record label="{700: read-variable['request',v4,-]|701: read-variable['filename',v5,-]}" ] 
+BB319 -> BB320 [tailport=s, headport=n, headlabel="      320"]
+BB319 -> BB322 [tailport=s, headport=n, color=gray, headlabel="      322"]
+BB320 [shape=record label="{702: call[TAJS_nodeRequireResolve,v4,v5,v1]}" ] 
+BB320 -> BB321 [tailport=s, headport=n, headlabel="      321"]
+BB320 -> BB322 [tailport=s, headport=n, color=gray]
+BB321 [shape=record label="{703: return[v1]}" ] 
+BB322 [shape=record label="{704: exceptional-return}" ] 
+}

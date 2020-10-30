@@ -1,0 +1,15 @@
+digraph {
+rankdir="TD"
+BB_entry3[shape=none,label=""];
+BB_entry3 -> BB102 [tailport=s, headport=n, headlabel="    102"]
+BB102 [shape=record label="{299: constant[undefined,v1]}" ] 
+BB102 -> BB103 [tailport=s, headport=n, headlabel="      103"]
+BB103 [shape=record label="{300: read-variable['Object',v4,-]|301: read-property[v4,'defineProperty',-]|302: read-variable['Error',v5,v2]|303: constant[\"captureStackTrace\",v6]|304: new[v7]|305: constant[true,v8]|306: write-property[v7,'configurable',v8]|307: constant[false,v9]|308: write-property[v7,'enumerable',v9]|309: constant[true,v10]|310: write-property[v7,'writable',v10]|311: function-expr[function(targetObject,constructorOpt),v11]|312: write-property[v7,'value',v11]}" ] 
+BB103 -> BB104 [tailport=s, headport=n, headlabel="      104"]
+BB103 -> BB106 [tailport=s, headport=n, color=gray, headlabel="      106"]
+BB104 [shape=record label="{313: call[v4,'defineProperty',v5,v6,v7,-]}" ] 
+BB104 -> BB105 [tailport=s, headport=n, headlabel="      105"]
+BB104 -> BB106 [tailport=s, headport=n, color=gray]
+BB105 [shape=record label="{314: return[v1]}" ] 
+BB106 [shape=record label="{315: exceptional-return}" ] 
+}

@@ -577,6 +577,7 @@ public class NodeTransfer implements NodeVisitor {
         // added by song
 
         /*
+
         // if there is exports, it should have a read property of exports here
         String property_str = n.getPropertyString();
         if (property_str != null && property_str.equals("exports")) {
@@ -589,6 +590,7 @@ public class NodeTransfer implements NodeVisitor {
                             String func_name = val_label.getFunction().getName();
                             c.addExported(func_name);
                             //System.out.println("Export: " + n + n.getValueRegister() + func_name);
+                            System.out.println("Export: " + n + n.getValueRegister() + func_name);
                         }
                     }
 
@@ -597,7 +599,7 @@ public class NodeTransfer implements NodeVisitor {
         }
         // export format 2, module.export.a = a
         // TODO: impelment this lalter
-        // */
+        */
 
         if (Options.get().isBlendedAnalysisEnabled())
             baseval = UnknownValueResolver.join(c.getAnalysis().getBlendedAnalysis().getBase(baseval, n, c.getState()), c.getState()); // join does not decrease precision due to base being object labels only

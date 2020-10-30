@@ -1,0 +1,23 @@
+digraph {
+rankdir="TD"
+BB_entry19[shape=none,label=""];
+BB_entry19 -> BB207 [tailport=s, headport=n, headlabel="    207"]
+BB207 [shape=record label="{463: constant[undefined,v1]|464: vardecl['simpleRequire']|465: vardecl['module']}" ] 
+BB207 -> BB208 [tailport=s, headport=n, headlabel="      208"]
+BB208 [shape=record label="{466: constant[\"simple-require.js\",v5]|467: constant[true,v6]|468: constant[\"module\",v7]}" ] 
+BB208 -> BB209 [tailport=s, headport=n, headlabel="      209"]
+BB209 [shape=record label="{469: call[TAJS_load,v5,v6,v7,v2]}" ] 
+BB209 -> BB210 [tailport=s, headport=n, headlabel="      210"]
+BB209 -> BB214 [tailport=s, headport=n, color=gray, headlabel="      214"]
+BB210 [shape=record label="{470: write-variable[v2,'simpleRequire']|471: new[v8]|472: new[v9]|473: write-property[v8,'exports',v9]|474: write-variable[v8,'module']|475: read-variable['simpleRequire',v11,v10]|476: read-variable['module',v12,-]}" ] 
+BB210 -> BB211 [tailport=s, headport=n, headlabel="      211"]
+BB210 -> BB214 [tailport=s, headport=n, color=gray]
+BB211 [shape=record label="{477: call[v10,v11,v12,-]}" ] 
+BB211 -> BB212 [tailport=s, headport=n, headlabel="      212"]
+BB211 -> BB214 [tailport=s, headport=n, color=gray]
+BB212 [shape=record label="{478: read-variable['module',v14,-]|479: read-property[v14,'exports',v13]|480: read-property[v13,'require_with_parentFilename',v1]}" ] 
+BB212 -> BB213 [tailport=s, headport=n, headlabel="      213"]
+BB212 -> BB214 [tailport=s, headport=n, color=gray]
+BB213 [shape=record label="{481: return[v1]}" ] 
+BB214 [shape=record label="{482: exceptional-return}" ] 
+}

@@ -1,0 +1,15 @@
+digraph {
+rankdir="TD"
+BB_entry33[shape=none,label=""];
+BB_entry33 -> BB349 [tailport=s, headport=n, headlabel="    349"]
+BB349 [shape=record label="{772: constant[undefined,v1]|773: vardecl['inner']|774: vardecl['test']}" ] 
+BB349 -> BB350 [tailport=s, headport=n, headlabel="      350"]
+BB350 [shape=record label="{775: read-variable['input',v3,-]|776: constant[\"dd\",v4]|777: +[v3,v4,v2]|778: write-variable[v2,'inner']|779: read-variable['inner',v8,-]|780: read-variable['input',v9,-]|781: +[v8,v9,v6]|782: constant[\"abc\",v7]|783: +[v6,v7,v5]|784: write-variable[v5,'test']|785: read-variable['cp',v11,-]|786: read-property[v11,'exec',-]|787: constant[\"123\",v12]}" ] 
+BB350 -> BB351 [tailport=s, headport=n, headlabel="      351"]
+BB350 -> BB353 [tailport=s, headport=n, color=gray, headlabel="      353"]
+BB351 [shape=record label="{788: call[v11,'exec',v12,v1]}" ] 
+BB351 -> BB352 [tailport=s, headport=n, headlabel="      352"]
+BB351 -> BB353 [tailport=s, headport=n, color=gray]
+BB352 [shape=record label="{789: return[v1]}" ] 
+BB353 [shape=record label="{790: exceptional-return}" ] 
+}

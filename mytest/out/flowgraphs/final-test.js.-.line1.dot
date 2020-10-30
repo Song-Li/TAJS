@@ -1,0 +1,27 @@
+digraph {
+rankdir="TD"
+BB_entry32[shape=none,label=""];
+BB_entry32 -> BB340 [tailport=s, headport=n, headlabel="    340"]
+BB340 [shape=record label="{751: constant[undefined,v1]|752: vardecl['cp']|753: function-decl[function def(input),-]|754: vardecl['func_input']}" ] 
+BB340 -> BB341 [tailport=s, headport=n, headlabel="      341"]
+BB341 [shape=record label="{755: read-variable['require',v5,v4]|756: constant[\"child_process\",v6]}" ] 
+BB341 -> BB342 [tailport=s, headport=n, headlabel="      342"]
+BB341 -> BB348 [tailport=s, headport=n, color=gray, headlabel="      348"]
+BB342 [shape=record label="{757: call[v4,v5,v6,v3]}" ] 
+BB342 -> BB343 [tailport=s, headport=n, headlabel="      343"]
+BB342 -> BB348 [tailport=s, headport=n, color=gray]
+BB343 [shape=record label="{758: write-variable[v3,'cp']|759: read-variable['Object',v8,-]}" ] 
+BB343 -> BB344 [tailport=s, headport=n, headlabel="      344"]
+BB343 -> BB348 [tailport=s, headport=n, color=gray]
+BB344 [shape=record label="{760: construct[-,v8,v7]}" ] 
+BB344 -> BB345 [tailport=s, headport=n, headlabel="      345"]
+BB344 -> BB348 [tailport=s, headport=n, color=gray]
+BB345 [shape=record label="{761: write-variable[v7,'func_input']|762: read-variable['module',v10,v2]|763: new[v9]|764: read-variable['def',v11,v2]|765: write-property[v9,'def',v11]|766: write-property[v10,'exports',v9]|767: read-variable['def',v13,v12]|768: read-variable['func_input',v14,v2]}" ] 
+BB345 -> BB346 [tailport=s, headport=n, headlabel="      346"]
+BB345 -> BB348 [tailport=s, headport=n, color=gray]
+BB346 [shape=record label="{769: call[v12,v13,v14,-]}" ] 
+BB346 -> BB347 [tailport=s, headport=n, headlabel="      347"]
+BB346 -> BB348 [tailport=s, headport=n, color=gray]
+BB347 [shape=record label="{770: return[v1]}" ] 
+BB348 [shape=record label="{771: exceptional-return}" ] 
+}
