@@ -109,6 +109,8 @@ import static dk.brics.tajs.flowgraph.TAJSFunctionName.TAJS_NODE_PARENT_DIR;
 import static dk.brics.tajs.flowgraph.TAJSFunctionName.TAJS_NODE_REQUIRE_RESOLVE;
 import static dk.brics.tajs.flowgraph.TAJSFunctionName.TAJS_NODE_UNURL;
 import static dk.brics.tajs.flowgraph.TAJSFunctionName.TAJS_NOT_IMPLEMENTED;
+import static dk.brics.tajs.flowgraph.TAJSFunctionName.TAJS_MARK_TAINTED;
+import static dk.brics.tajs.flowgraph.TAJSFunctionName.TAJS_SINK_FUNC;
 import static dk.brics.tajs.util.Collections.newList;
 import static dk.brics.tajs.util.Collections.newMap;
 import static dk.brics.tajs.util.Collections.newSet;
@@ -700,17 +702,31 @@ public class TAJSFunctionEvaluator {
                     }
                     return Value.makeNull();
                 });
+        // modified by Song
         register(implementations, 
-            TAJS_makeTainted,
-            "value",
+            TAJS_MARK_TAINTED,
+            "varName",
             "Value",
+            "Returns a tainted value",
             (call, state, pv, c) -> {
               Value taintedInfo = FunctionCalls.readParameter(call, state, 0);
-              Value newValue = new Value(taintedInfo);
-              newValue.setTainted(true);
-              return newValue;
-          }
-        )
+              taintedInfo.setTainted(true);
+              return taintedInfo;
+          });
+        register(implementations, 
+            TAJS_SINK_FUNC,
+            "inputVar",
+            "Value",
+            "Returns a tainted value",
+            (call, state, pv, c) -> {
+              Value taintedInfo = FunctionCalls.readParameter(call, state, 0);
+              if (taintedInfo.getTainted()) {
+                System.out.println("Vul Detected");
+                return Value.makeBool(true);
+              }
+              return Value.makeBool(false);
+          });
+
         Set<TAJSFunctionName> missingRegistrations = newSet(Arrays.asList(TAJSFunctionName.values()));
         missingRegistrations.removeAll(implementations.keySet());
         if (!missingRegistrations.isEmpty()) {

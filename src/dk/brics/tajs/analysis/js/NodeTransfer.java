@@ -379,6 +379,7 @@ public class NodeTransfer implements NodeVisitor {
             int result_base_reg = n.getResultBaseRegister();
             base_objs = newSet();
             v = pv.readVariable(varname, base_objs);
+            // added by song
             if (Options.get().isBlendedAnalysisEnabled()) {
                 v = c.getAnalysis().getBlendedAnalysis().getVariableValue(v, n, c.getState());
             }
@@ -419,7 +420,8 @@ public class NodeTransfer implements NodeVisitor {
     @Override
     public void visit(WriteVariableNode n) {
         Value v = c.getState().readRegister(n.getValueRegister());
-        /*System.out.println("Left: " + n + v);
+        System.out.println("Left: " + n + v);
+        /*
         System.out.println("Printing stack trace:");
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < elements.length; i++) {
@@ -763,6 +765,8 @@ public class NodeTransfer implements NodeVisitor {
         int base_reg = n.getBaseRegister();
         int func_reg = n.getFunctionRegister();
         int size_args = n.getNumberOfArgs();
+        // modified by Song
+        /*
         boolean exported_flag = false;
         if (func_reg > 0) {
             System.out.println("Call :" + n + c.getState().readRegister(func_reg));
@@ -776,8 +780,9 @@ public class NodeTransfer implements NodeVisitor {
                     if (size_args > 0) {
                         int arg_reg = n.getArgRegister(0);
                         Value arg_value = c.getState().readRegister(arg_reg);
+                        System.out.println("Var Value: " + arg_value);
                         if (arg_value.getTainted()) {
-                            //System.out.println("Vul Found: " + func_name + arg_value);
+                            System.out.println("Vul Found: " + func_name + arg_value);
                         }
                     }
 
@@ -798,6 +803,7 @@ public class NodeTransfer implements NodeVisitor {
               ObjectProperty op = arg_value.getObjectProperty();
           }
         }
+        */
         if (n.getTajsFunctionName() != null) {
             FunctionCalls.callFunction(new OrdinaryCallInfo(n, c) {
                 @Override

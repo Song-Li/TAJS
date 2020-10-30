@@ -61,12 +61,16 @@ public enum TAJSFunctionName {
     TAJS_NEW_ARRAY("newArray"),
     TAJS_NEW_OBJECT("newObject"),
 
+    TAJS_MARK_TAINTED("markTainted"), // used to mark a var as tainted
+    TAJS_SINK_FUNC("sinkFunc"), // used to say this is the sink function 
+
     TAJS_GET_MAIN("getMain"), // used only in simple-bootstrap-node.js
     TAJS_NOT_IMPLEMENTED("NOT_IMPLEMENTED"), // used only in simple-require.js
     TAJS_LOAD_JSON("loadJSON"), // used only in simple-require.js
     TAJS_NODE_REQUIRE_RESOLVE("nodeRequireResolve"), // used only in simple-require.js
     TAJS_NODE_PARENT_DIR("parentDir"), // used only in simple-require.js
     TAJS_NODE_UNURL("unURL"); // used only in simple-require.js
+
 
     private String string;
 
