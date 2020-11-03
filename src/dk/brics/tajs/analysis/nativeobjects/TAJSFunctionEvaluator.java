@@ -57,6 +57,7 @@ import dk.brics.tajs.util.AnalysisLimitationException;
 import dk.brics.tajs.util.AnalysisResultException;
 import dk.brics.tajs.util.Collectors;
 import dk.brics.tajs.util.PathAndURLUtils;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -122,6 +123,7 @@ import static dk.brics.tajs.util.Collections.singleton;
 public class TAJSFunctionEvaluator {
 
     private static final Map<TAJSFunctionName, TAJSFunctionImplementation> implementations = makeImplementations();
+    private static final Logger log = Logger.getLogger(TAJSFunctionEvaluator.class);
 
     public static void main(String[] args) {
         Map<TAJSFunctionName, String> documentationStrings = getMarkdownDocumentationStrings();
@@ -721,7 +723,7 @@ public class TAJSFunctionEvaluator {
             (call, state, pv, c) -> {
               Value taintedInfo = FunctionCalls.readParameter(call, state, 0);
               if (taintedInfo.getTainted()) {
-                System.out.println("Vul Detected");
+                log.info("[DETECTED] Vul Detected");
                 return Value.makeBool(true);
               }
               return Value.makeBool(false);
