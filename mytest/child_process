@@ -3,7 +3,7 @@ function exec(command, callback1,callback2) {
   var stdout = 'stdout';
   var stderr = 'stderr';
   var sink = command;
-  sink_hqbpillvul_exec(sink);
+  TAJS_sinkFunc(sink);
   callback1(err, stdout, stderr);
   callback2(err, stdout, stderr);
 }
@@ -13,7 +13,7 @@ function execSync(command, options,callback) {
   var stdout = 'stdout';
   var stderr = 'stderr';
   var sink = command;
-  sink_hqbpillvul_execSync(sink);
+  TAJS_sinkFunc(sink);
   callback(err, stdout, stderr);
 }
 

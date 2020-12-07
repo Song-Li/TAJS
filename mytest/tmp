@@ -3,73 +3,61 @@ Copyright 2009-2020 Aarhus University
 
 ===========  Loading files ===========
 ===========  Data flow analysis ===========
-Node transfers: 4       Visited/total nodes:      0/0      Abstract states: 4      Avg. state size: 488.75   Call edges: 0      Worklist size: 1     Time: 0.14            Call :call[-,v4,-][@<anonymous>#fun1] | tainted:false
-Call :call[-,v7,-][@<anonymous>#fun3] | tainted:false
-Call :call[-,v10,-][@<anonymous>#fun17] | tainted:false
-Call :call[-,v3,-][@<anonymous>#fun18] | tainted:false
-Call :call[v4,v5,v3][@loadRequire#fun19] | tainted:false
-Node transfers: 76      Visited/total nodes:      0/0      Abstract states: 34     Avg. state size: 83.97    Call edges: 5      Worklist size: 1     Time: 0.31            Call :call[v10,v11,v12,-][@<anonymous>#fun20] | tainted:false
-Func Name: null
-Func Name: nullfalse[]
-Call :call[-,v3,v4,-][@<anonymous>#fun21] | tainted:false
-Func Name: null
-Func Name: nullfalse[]
-Call :call[v8,v9,v10,v13,v6][@require_with_parentFilename#fun31] | tainted:false
-Func Name: require_with_parentFilename
-Func Name: require_with_parentFilenamefalse[]
-Call :construct[-,v23,v24,v25,v22]^(@activation#node489.Module[present]) | tainted:false
-Call :call[v8,v9,v10,v11,-]^(@activation#node489.fillModuleWithNonEssentials[present]) | tainted:false
-Call :construct[-,v11,v9]^(@<the global object>[native].Array[present]) | tainted:false
-Call :construct[-,v14,v12]^(@<the global object>[native].Array[present]) | tainted:false
-Call :call[v29,v30,v31,v32,-]^(@activation#node489.load[present]) | tainted:false
-Node transfers: 232     Visited/total nodes:      0/0      Abstract states: 96     Avg. state size: 77.39    Call edges: 11     Worklist size: 1     Time: 0.58            Call :construct[-,v57,v58,v60,v61,v62,v66,v56]^(@<the global object>[native].Array[present]) | tainted:false
-Call :call[v4,v5,v6,v3]^(@activation#node751.require[present]) | tainted:false
-Call :call[v3,v4,v5,v6,v1]^(@activation#node489.require_with_parentFilename[present]) | tainted:false
-Resolve, child_process| file:/home/song/projs/myTAJS/mytest/test.js
-Node transfers: 310     Visited/total nodes:      6/34     Abstract states: 128    Avg. state size: 66.66    Call edges: 15     Worklist size: 1     Time: 1.03            Call :construct[-,v23,v24,v25,v22]^(@activation#node489.Module[present]) | tainted:false
-Call :call[v8,v9,v10,v11,-]^(@activation#node489.fillModuleWithNonEssentials[present]) | tainted:false
-Call :construct[-,v11,v9][@Array[native]] | tainted:false
-Call :construct[-,v14,v12][@Array[native]] | tainted:false
-Call :call[v29,v30,v31,v32,-]^(@activation#node489.load[present]) | tainted:false
-Call :construct[-,v57,v58,v60,v61,v62,v66,v56]^(@<the global object>[native].Array[present]) | tainted:false
-Call :construct[-,v8,v7]^(@<the global object>[native].Object[present]) | tainted:false
-Call :call[v12,v13,v14,-][@def#fun33] | tainted:false
-Func Name: def
-Func Name: deftrue[def, execSync, exec]
-Node transfers: 529     Visited/total nodes:     56/88     Abstract states: 201    Avg. state size: 79.87    Call edges: 18     Worklist size: 0     Time: 1.11            
+Node transfers: 4       Visited/total nodes:      0/0      Abstract states: 4      Avg. state size: 488.75   Call edges: 0      Worklist size: 1     Time: 0.21            Node transfers: 76      Visited/total nodes:      0/0      Abstract states: 34     Avg. state size: 83.97    Call edges: 5      Worklist size: 1     Time: 0.37            Left: write-variable[v2,'simpleRequire'][@<anonymous>#fun20] | tainted:false
+Left: write-variable[v8,'module'][@Object#node471] | tainted:false
+Left: write-variable[v6,'cache'][@Object#node501] | tainted:false
+Left: write-variable[v7,'dummy_cache'][@Object#node503] | tainted:false
+Left: write-variable[v8,'dummy_extensions'][@Object#node505] | tainted:false
+Left: write-variable[v3,'require_with_parentFilename'][@require_with_parentFilename#fun31] | tainted:false
+Left: write-variable[v2,'filename']"file:/Users/lsong18/projs/TAJS/mytest/test.js" | tainted:false
+Left: write-variable[v21,'parentModule']Null | tainted:false
+Left: write-variable[v22,'module'][@Object#node737{filename="file:/Users/lsong18/projs/TAJS/mytest/test.js" | tainted:false, parent=-, <2>=-}] | tainted:false
+Node transfers: 232     Visited/total nodes:      0/0      Abstract states: 96     Avg. state size: 77.39    Call edges: 11     Worklist size: 1     Time: 0.59            Left: write-variable[v38,'f'][@<anonymous>#fun32] | tainted:false
+Left: write-variable[v48,'dirname']"file:///Users/lsong18/projs/TAJS/mytest/" | tainted:false
+Resolve, child_process| file:/Users/lsong18/projs/TAJS/mytest/test.js
+Node transfers: 311     Visited/total nodes:      7/42     Abstract states: 128    Avg. state size: 66.93    Call edges: 15     Worklist size: 1     Time: 0.84            Left: write-variable[v2,'filename']"file:/Users/lsong18/projs/TAJS/mytest/child_process" | tainted:false
+Left: write-variable[v18,'parentModule']^(@Object#node501.file:/Users/lsong18/projs/TAJS/mytest/test.js[present]) | tainted:false
+Left: write-variable[v22,'module'][@Object#node737{filename="file:/Users/lsong18/projs/TAJS/mytest/child_process" | tainted:false, parent=-, <2>=-}] | tainted:false
+Left: write-variable[v38,'f'][@<anonymous>#fun35] | tainted:false
+Left: write-variable[v48,'dirname']"file:///Users/lsong18/projs/TAJS/mytest/" | tainted:false
+Left: write-variable[v3,'cp'][@Object#node835] | tainted:false
+Left: write-variable[v7,'func_input'][@Object#node761] | tainted:false
+Left: write-variable[v2,'inner']"[object Object][object Object]" | tainted:true
+Left: write-variable[v6,'test']"[object Object][object Object][object Object]abc" | tainted:true
+Left: write-variable[v2,'err']"err" | tainted:false
+Left: write-variable[v3,'stdout']"stdout" | tainted:false
+Left: write-variable[v4,'stderr']"stderr" | tainted:false
+Left: write-variable[v5,'sink']"[object Object][object Object][object Object]abcabc" | tainted:true
+[DETECTED] Vul Detected
+Node transfers: 537     Visited/total nodes:     64/97     Abstract states: 208    Avg. state size: 79.31    Call edges: 18     Worklist size: 0     Time: 0.94            
 ===========  Scan ===========
-Call :call[v10,v11,v12,-][@<anonymous>#fun20] | tainted:false
-Func Name: null
-Func Name: nullfalse[def, execSync, exec]
-Resolve, child_process| file:/home/song/projs/myTAJS/mytest/test.js
-Call :construct[-,v23,v24,v25,v22]^(@activation#node489.Module[present]) | tainted:false
-Call :construct[-,v23,v24,v25,v22]^(@activation#node489.Module[present]) | tainted:false
-Call :call[v29,v30,v31,v32,-]^(@activation#node489.load[present]) | tainted:false
-Call :call[v29,v30,v31,v32,-]^(@activation#node489.load[present]) | tainted:false
-Call :call[v4,v5,v6,v3]^(@activation#node751.require[present]) | tainted:false
-Call :construct[-,v8,v7]^(@<the global object>[native].Object[present]) | tainted:false
-Call :call[v12,v13,v14,-][@def#fun33] | tainted:false
-Func Name: def
-Func Name: deftrue[def, execSync, exec]
-Call :call[-,v3,v4,-][@<anonymous>#fun21] | tainted:false
-Func Name: null
-Func Name: nullfalse[def, execSync, exec]
-Call :call[v8,v9,v10,v11,-]^(@activation#node489.fillModuleWithNonEssentials[present]) | tainted:false
-Call :call[v8,v9,v10,v11,-]^(@activation#node489.fillModuleWithNonEssentials[present]) | tainted:false
-Call :call[-,v3,-][@<anonymous>#fun18] | tainted:false
-Call :construct[-,v57,v58,v60,v61,v62,v66,v56]^(@<the global object>[native].Array[present]) | tainted:false
-Call :construct[-,v57,v58,v60,v61,v62,v66,v56]^(@<the global object>[native].Array[present]) | tainted:false
-Call :call[v3,v4,v5,v6,v1]^(@activation#node489.require_with_parentFilename[present]) | tainted:false
-Call :call[-,v4,-][@<anonymous>#fun1] | tainted:false
-Call :call[-,v7,-][@<anonymous>#fun3] | tainted:false
-Call :call[-,v10,-][@<anonymous>#fun17] | tainted:false
-Call :call[v4,v5,v3][@loadRequire#fun19] | tainted:false
-Call :call[v8,v9,v10,v13,v6][@require_with_parentFilename#fun31] | tainted:false
-Func Name: require_with_parentFilename
-Func Name: require_with_parentFilenamefalse[def, execSync, exec]
-Call :construct[-,v11,v9][@Array[native]] | tainted:false
-Call :construct[-,v14,v12][@Array[native]] | tainted:false
-child_process:6:3: [definite] ReferenceError, reading absent variable sink_hqbpillvul_exec
+Resolve, child_process| file:/Users/lsong18/projs/TAJS/mytest/test.js
+Left: write-variable[v2,'filename']"file:/Users/lsong18/projs/TAJS/mytest/test.js" | tainted:false
+Left: write-variable[v2,'filename']"file:/Users/lsong18/projs/TAJS/mytest/child_process" | tainted:false
+Left: write-variable[v18,'parentModule']^(@Object#node501.file:/Users/lsong18/projs/TAJS/mytest/test.js[present]) | tainted:false
+Left: write-variable[v21,'parentModule']Null | tainted:false
+Left: write-variable[v22,'module'][@Object#node737{filename="file:/Users/lsong18/projs/TAJS/mytest/test.js" | tainted:false, parent=-, <2>=-}] | tainted:false
+Left: write-variable[v22,'module'][@Object#node737{filename="file:/Users/lsong18/projs/TAJS/mytest/child_process" | tainted:false, parent=-, <2>=-}] | tainted:false
+Left: write-variable[v2,'simpleRequire'][@<anonymous>#fun20] | tainted:false
+Left: write-variable[v8,'module'][@Object#node471] | tainted:false
+Left: write-variable[v3,'cp'][@Object#node835] | tainted:false
+Left: write-variable[v7,'func_input'][@Object#node761] | tainted:true
+Left: write-variable[v2,'err']"err" | tainted:false
+Left: write-variable[v3,'stdout']"stdout" | tainted:false
+Left: write-variable[v4,'stderr']"stderr" | tainted:false
+Left: write-variable[v5,'sink']"[object Object][object Object][object Object]abcabc" | tainted:true
+[DETECTED] Vul Detected
+Left: write-variable[v6,'cache'][@Object#node501] | tainted:false
+Left: write-variable[v7,'dummy_cache'][@Object#node503] | tainted:false
+Left: write-variable[v8,'dummy_extensions'][@Object#node505] | tainted:false
+Left: write-variable[v2,'inner']"[object Object][object Object]" | tainted:true
+Left: write-variable[v6,'test']"[object Object][object Object][object Object]abc" | tainted:true
+Left: write-variable[v38,'f'][@<anonymous>#fun32] | tainted:false
+Left: write-variable[v38,'f'][@<anonymous>#fun35] | tainted:false
+Left: write-variable[v48,'dirname']"file:///Users/lsong18/projs/TAJS/mytest/" | tainted:false
+Left: write-variable[v48,'dirname']"file:///Users/lsong18/projs/TAJS/mytest/" | tainted:false
+Left: write-variable[v3,'require_with_parentFilename'][@require_with_parentFilename#fun31] | tainted:false
+child_process:7:3: [definite] TypeError, call to non-function
 test.js: [definite] Ordinary program exit is unreachable
+child_process:7:3: [definite] Variable callback1 is null/undefined
 child_process:23:3: [definite] Dead assignment, property execSync is never read
-test.js:11:19: [definite] Dead assignment, property def is never read
