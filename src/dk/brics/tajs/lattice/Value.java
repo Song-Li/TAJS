@@ -276,6 +276,11 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
 
     private boolean tainted; // is set, the value is tainted
 
+    /**
+     * designed only for prototype pollution
+     */
+    private boolean nameTainted; // is set, the name node of the value is tainted
+
     protected static boolean canonicalizing; // set during canonicalization
 
     static {
@@ -318,6 +323,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
         num = null;
         str = null;
         tainted = false;
+        nameTainted = false;
         object_labels = getters = setters = null;
         excluded_strings = included_strings = null;
         functionPartitions = null;
@@ -342,6 +348,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
         functionTypeSignatures = v.functionTypeSignatures;
         var = v.var;
         tainted = v.tainted;
+        nameTainted = v.nameTainted;
         hashcode = v.hashcode;
     }
 
@@ -438,6 +445,23 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
     public static void reset() {
         init();
     }
+
+    /**
+     * Song
+     * Get the nameTaint info
+     */
+    public boolean getNameTainted() {
+        return nameTainted;
+    }
+
+    /**
+     * Song
+     * Set the taint info
+     */
+    public boolean setNameTainted(boolean val) {
+        return nameTainted = val;
+    }
+
 
     /**
      * Get the taint info
@@ -1161,6 +1185,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
             excluded_strings = v.excluded_strings;
             included_strings = v.included_strings;
             tainted = v.tainted;
+            nameTainted = v.nameTainted;
             var = v.var;
             return true;
         }
@@ -1249,6 +1274,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
             modified = true;
 
         tainted |= v.tainted;
+        nameTainted |= v.nameTainted;
         return modified;
     }
 
@@ -1670,6 +1696,7 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
 //         if (isMaybeModified())
 //         b.append("%");
         b.append(" | tainted:").append(tainted);
+        b.append(" | nameTainted:").append(nameTainted);
         return b.toString();
     }
 
@@ -3566,6 +3593,18 @@ public class Value implements Undef, Null, Bool, Num, Str, PKeys, DeepImmutable 
         Value r = new Value();
         if (!v.isEmpty())
             r.object_labels = newSet(v);
+        return canonicalize(r);
+    }
+
+    /**
+     * Constructs the value describing the given object labels.
+     */
+    public static Value makeObject(Set<ObjectLabel> v, boolean nameTainted) {
+        Value r = new Value();
+        if (!v.isEmpty())
+            r.object_labels = newSet(v);
+        if (nameTainted)
+            r.setNameTainted(true);
         return canonicalize(r);
     }
 

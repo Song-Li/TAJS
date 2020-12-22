@@ -371,6 +371,7 @@ public class NodeTransfer implements NodeVisitor {
         String varname = n.getVariableName();
         Value v;
         Set<ObjectLabel> base_objs = null;
+
         if (varname.equals("this")) {
             // 11.1.1 read 'this' from the execution context
             v = c.getState().readThis();
@@ -398,8 +399,9 @@ public class NodeTransfer implements NodeVisitor {
                 c.getState().setToBottom();
                 return;
             }
-            if (result_base_reg != AbstractNode.NO_VALUE)
-                c.getState().writeRegister(result_base_reg, Value.makeObject(base_objs)); // see 10.1.4
+            if (result_base_reg != AbstractNode.NO_VALUE) {
+                c.getState().writeRegister(result_base_reg, Value.makeObject(base_objs));
+            }
             m.visitRead(n, v, c.getState());
             m.visitReadVariable(n, v, c.getState()); // TODO: combine some of these m.visitXYZ methods?
         }
@@ -420,7 +422,6 @@ public class NodeTransfer implements NodeVisitor {
     @Override
     public void visit(WriteVariableNode n) {
         Value v = c.getState().readRegister(n.getValueRegister());
-        System.out.println("Left: " + n + v);
         /*
         System.out.println("Printing stack trace:");
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();
@@ -545,6 +546,12 @@ public class NodeTransfer implements NodeVisitor {
             v = Value.join(c.getAnalysis().getBlendedAnalysis().getValue(v, baseval, originalPropertyVal, n, c.getState()));
         m.visitVariableOrProperty(n, n.getPropertyString(), n.getSourceLocation(), v, c.getState().getContext(), c.getState());
         m.visitRead(n, v, c.getState());
+        // for prototype pollution
+        // Song
+        if (propertyval.getTainted()) {
+            v.setNameTainted(true);
+        }
+
         if (v.isNotPresent() && !Options.get().isPropagateDeadFlow()) {
             c.getState().setToBottom();
             return;
@@ -565,8 +572,19 @@ public class NodeTransfer implements NodeVisitor {
         // get the base value, coerce with ToObject
         Value baseval = c.getState().readRegister(n.getBaseRegister());
         baseval = UnknownValueResolver.getRealValue(baseval, c.getState());
-        /*
-        System.out.println("Left: " + n + baseval);
+
+        // Song for pp detection 
+        int property_reg = n.getPropertyRegister();
+        int val_reg = n.getValueRegister();
+        if (property_reg != -1 && val_reg != -1){
+            Value propertyVal= c.getState().readRegister(property_reg);
+            Value valueVal = c.getState().readRegister(val_reg);
+            if (valueVal.getTainted() && baseval.getNameTainted() && propertyVal.getTainted()) {
+                System.out.println("[DETECTED] Prototype Pollution Detected");
+            }
+            //System.out.println("Left prop: " + n.getBaseRegister() + baseval + propertyVal+ valueVal);
+        }
+        /* Song
         System.out.println("Printing stack trace:");
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < elements.length; i++) {
