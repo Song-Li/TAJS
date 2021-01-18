@@ -319,7 +319,8 @@ public class InitialStateBuilder implements IInitialStateBuilder<State, Context,
         s.writeInternalPrototype(global, Value.makeObject(lObjectPrototype)); // Rhino's implementation choice
 
         // 15.1.2 function properties of the global object
-        createPrimitiveFunction(global, lFunProto, ECMAScriptObjects.EVAL, "eval", 1, c);
+        // eval modified by Song to skip eval
+        createPrimitiveFunction(global, lFunProto, ECMAScriptObjects.EVAL, "evalFake", 1, c);
         createPrimitiveFunction(global, lFunProto, ECMAScriptObjects.PARSEINT, "parseInt", 2, c);
         createPrimitiveFunction(global, lFunProto, ECMAScriptObjects.PARSEFLOAT, "parseFloat", 1, c);
         createPrimitiveFunction(global, lFunProto, ECMAScriptObjects.ISNAN, "isNaN", 1, c);
