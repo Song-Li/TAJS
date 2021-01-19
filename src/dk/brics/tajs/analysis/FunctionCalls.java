@@ -431,7 +431,16 @@ public class FunctionCalls {
                                     ExecutionContext old_ec = c.getState().getExecutionContext();
                                     c.getState().setExecutionContext(new ExecutionContext(old_ec.getScopeChain(), newSet(old_ec.getVariableObject()), call.getThis()));
                                 }
-                                Value res = HostAPIs.evaluate(objlabel.getHostObject(), call, c);
+                                // modified by Song
+                                // for lambda function, the source will be unknown, which will lead to a error
+                                // use a try catch
+                                Value res = null;
+                                try {
+                                    res = HostAPIs.evaluate(objlabel.getHostObject(), call, c);
+                                } catch (Exception e) {
+                                    res = Value.makeNone();
+                                }
+
                                 if (res == null) {
                                     throw new AnalysisException("null result from " + objlabel.getHostObject());
                                 }

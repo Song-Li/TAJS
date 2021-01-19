@@ -124,11 +124,7 @@ public class JSRegExp {
                 return Value.makeUndef();
             }
             case REGEXP_EXEC: { // 15.10.6.2 (see STRING_MATCH)
-                // modified by Song
-                // May lead to an error when call.getSourceNode is null
-                // return null for now
-                return Value.makeNone();
-                //return TAJSConcreteSemantics.convertTAJSCall(state.readThis(), "RegExp.prototype.exec", 1, call, c, () -> handleUnknownRegexMatchResult(call.getSourceNode(), state.readThis(), c));
+                return TAJSConcreteSemantics.convertTAJSCall(state.readThis(), "RegExp.prototype.exec", 1, call, c, () -> handleUnknownRegexMatchResult(call.getSourceNode(), state.readThis(), c));
             }
 
             case REGEXP_TEST: { // 15.10.6.3
