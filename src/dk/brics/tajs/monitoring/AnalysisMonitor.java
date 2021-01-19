@@ -1205,7 +1205,8 @@ public class AnalysisMonitor implements IAnalysisMonitoring {
         if (s != Status.NONE) {
             call_to_non_function.add(n);
         }
-        addMessage(n, s, Severity.HIGH, "TypeError, call to non-function");
+        // modified by song to force process non functions
+        addMessage(n, s, Severity.HIGH, "TypeError, call to non-function " + n);
     }
 
     /**

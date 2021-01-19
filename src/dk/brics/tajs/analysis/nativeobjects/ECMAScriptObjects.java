@@ -269,7 +269,8 @@ public enum ECMAScriptObjects implements HostObject {
     JSON_PARSE("JSON.parse"),
     JSON_STRINGIFY("JSON.stringify"),
 
-    EVAL("eval"),
+    // modified by Song, skip eval
+    EVAL("evalFake"),
     PARSEINT("parseInt"),
     PARSEFLOAT("parseFloat"),
     ISNAN("isNaN"),
