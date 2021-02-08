@@ -666,9 +666,14 @@ public class TAJSFunctionEvaluator {
                         if (resolved == null) {
                             // We could report an JavaScript error here instead.
                             // But that is an unlikely JavaScript error, it is much more likely that there is a bug in TAJS...
+                            // modified to Song, it's likely that we are trying to detect only one package
+                            // return os
+                            /*
                             throw new AnalysisException(
                                     String.format("Failed to resolve TAJS_nodeRequireResolve('%s', '%s')!?!", filenameString, parent)
                             );
+                            */
+                            resolved = NodeJSRequire.get().resolve("os", parent);
                         }
                     }
                     return Value.makeStr(resolved.toString());
