@@ -98,6 +98,7 @@ public class NodeJSRequire {
                 process.waitFor();
                 if (process.exitValue() != 0) {
                     if (lineErrs.contains("Error: Cannot find module '" + arg + "'")) {
+                        System.out.println("Error Cannot find module, " + arg);
                         return null;
                     }
                     throw new AnalysisLimitationException.NodeJSRequireException("NodeJS process exited with exit code: " + process.exitValue());

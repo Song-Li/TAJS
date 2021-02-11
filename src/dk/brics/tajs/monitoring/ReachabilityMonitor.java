@@ -61,6 +61,14 @@ public class ReachabilityMonitor {
                 .map(n -> n.getFirst().getBlock().getFunction())
                 .collect(Collectors.toSet());
     }
+    
+    // added by Song to count the visited blocks
+    public Set<BasicBlock> getReachableBlocks() {
+        return reachable.stream()
+                .map(n -> n.getFirst().getBlock())
+                .collect(Collectors.toSet());
+
+    }
 
     public Set<Function> getUnreachableFunctions() {
         Collection<Function> all = functions;

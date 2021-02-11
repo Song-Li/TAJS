@@ -613,8 +613,16 @@ public class AnalysisMonitor implements IAnalysisMonitoring {
             b.append("\nTotal number of fixed-property read nodes:                                    ").append(read_fixed_property_nodes);
             b.append("\nFixed-property read nodes that are certain to never have absent property:     ").append(read_fixed_property_nodes > 0 ? ((read_fixed_property_nodes - absent_fixed_property_read.size()) * 1000 / read_fixed_property_nodes) / 10f + "%" : "-");
 
-            b.append("\n\nTotal number of functions:                                                    ").append(functions.size());
+            b.append("\n\nTotal number of functions:                                                    ").append(flowgraph.getFunctions().size());
             b.append("\nNumber of unreachable functions:                                              ").append(functions.size() - reachabilityMonitor.getReachableFunctions().size()); // FIXME: reports "1" for an empty program
+
+            // added by Song
+            int number_of_blocks = flowgraph.getNumberOfBlocks();
+            int reachable_num_blocks = reachabilityMonitor.getReachableBlocks().size();
+            b.append("\n\nTotal number of blocks:                                                    ").append(number_of_blocks);
+            b.append("\nNumber of reachable blocks:                                              ").append(reachable_num_blocks); // FIXME: reports "1" for an empty program
+            b.append("\nBlock level of code coverage:                                                    ").append(number_of_blocks > 0 ? reachable_num_blocks * 1000 / number_of_blocks / 10f + "%" : "-");
+
 
             b.append("\n\nNode transfers:                                                               ").append(node_transfers);
             b.append("\nBlock transfers:                                                              ").append(block_transfers);
