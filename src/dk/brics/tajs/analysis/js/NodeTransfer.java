@@ -580,7 +580,13 @@ public class NodeTransfer implements NodeVisitor {
             Value propertyVal= c.getState().readRegister(property_reg);
             Value valueVal = c.getState().readRegister(val_reg);
             if (valueVal.getTainted() && baseval.getNameTainted() && propertyVal.getTainted()) {
-                System.out.println("[DETECTED] Prototype Pollution Detected");
+              System.out.println("[DETECTED] Prototype Pollution Detected");
+              System.out.println("Printing stack trace:");
+              StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+              for (int i = 1; i < elements.length; i++) {
+                StackTraceElement s = elements[i];
+                System.out.println("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":" + s.getLineNumber() + ")");
+              }
             }
             //System.out.println("Left prop: " + n.getBaseRegister() + baseval + propertyVal+ valueVal);
         }
